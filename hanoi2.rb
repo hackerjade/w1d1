@@ -1,23 +1,18 @@
 class Hanoi
-  attr_accessor :towers, :solutions, :to_tower, :from_tower, :user_from, :user_to
-  def initialize(towerlength)
+  # attr_accessor :towers, :solutions, :to_tower, :from_tower, :user_from, :user_to
+
+  def initialize(tower_length)
+    @tower_length = tower_length
     @towers = [[], [], []]
-    @solution = []
-    @to_tower = nil
-    @from_tower = nil
-    towerlength -= 1
-    (0..towerlength).each do |value|
-      @towers[0] << value
-      @solution << value
-    end
-    p @towers
-    self.game
+    @solution = (1..@tower_length).to_a
+    @towers[0] = (1..@tower_length).to_a
   end
 
-  def game
+  def play
+    p @towers
     until @towers[2] == @solution
-      self.move_from
-      self.move_to
+      # self.get_move_from
+      # self.get_move_to
       self.move_tower
       p @towers
     end
@@ -32,24 +27,28 @@ class Hanoi
     end
   end
 
-  def move_to
+  def get_move_to
     puts "Which tower would you like to move to?"
     @user_to = gets.chomp.to_i - 1
-    @to_tower = @towers[@user_to][0]
+
+    @towers[@user_to][0]
   end
 
-  def move_from
+  def get_move_from
     puts "Which tower would you like to move from?"
-    @user_from = gets.chomp.to_i - 1
-    @from_tower = @towers[@user_from][0]
-    until !@from_tower.nil?
+    destination_tower = gets.chomp.to_i - 1
+
+    if destination_tower < 0 || destination_tower >= @tower_length
       puts "That's not a valid move."
-      self.move_from
+      get_move_from
     end
+
+    return destination_tower
   end
 
 
 end
 
 
-new_game = Hanoi.new(3)
+game = Hanoi.new(3)
+game.play

@@ -33,6 +33,7 @@ class MyHashSet
     @store.each do |key, value|
       new_hash[key] = value if set2.has_key?(key)
     end
+
     new_hash
   end
 
@@ -41,6 +42,7 @@ class MyHashSet
     @store.each do |key, value|
       new_hash[key] = value unless set2.has_key?(key)
     end
+
     new_hash
   end
 end
